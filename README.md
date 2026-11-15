@@ -28,13 +28,13 @@ MemCleaner is a Windows memory cleaner with a dark interface, automatic cleanup 
 
 ## ✨ Features
 
-- 📊 **Memory monitoring** — displays RAM usage, available memory, file cache, and committed memory.
-- 🧹 **Selective memory cleanup** — cleans selected memory areas: process working sets, the standby list, modified pages, and the system file cache.
-- ⚡ **Automatic cleanup** — manually start cleanup or configure automatic cleanup based on a time interval and/or a memory usage threshold.
-- 📜 **Cleanup history** — records cleanup results, including the time, trigger reason, and estimated amount of freed memory.
-- 🚫 **Process exclusions** — exclude individual processes from cleanup.
-- 🖥️ **Windows integration** — supports startup with Windows, system tray minimization, and the global `Ctrl+Alt+M` hotkey.
-- 🎨 **Dark interface** — a dark UI with Russian, English, and system language options.
+- 📊 **Memory monitoring** - displays RAM usage, available memory, file cache, and committed memory.
+- 🧹 **Selective memory cleanup** - cleans selected memory areas: process working sets, the standby list, modified pages, and the system file cache.
+- ⚡ **Automatic cleanup** - manually start cleanup or configure automatic cleanup based on a time interval and/or a memory usage threshold.
+- 📜 **Cleanup history** - records cleanup results, including the time, trigger reason, and estimated amount of freed memory.
+- 🚫 **Process exclusions** - exclude individual processes from cleanup.
+- 🖥️ **Windows integration** - supports startup with Windows, system tray minimization, and the global `Ctrl+Alt+M` hotkey.
+- 🎨 **Dark interface** - a dark UI with Russian, English, and system language options.
 
 The available memory cleanup areas depend on the Windows version and application build. See **Memory Cleanup Feature Availability** below for details.
 
@@ -78,7 +78,7 @@ Choose the installer corresponding to your Windows version:
 
 | Windows Version | Installer |
 |:----------------|:----------|
-| Windows 10 1809+ / Windows 11 (x64) | `MemCleaner-Setup-1.0.0.0.exe` |
+| Windows 10 1809+ / Windows 11 (x64) | `MemCleaner-Setup-win10-win11-1.0.0.0.exe` |
 | Windows 7 SP1 / Windows 8.1 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
 | Windows Vista SP2 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
 | Windows XP SP3 (32-bit) | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
@@ -144,21 +144,21 @@ The full license text is available in the `LICENSE` file next to this README and
 
 ## ✨ Возможности программы
 
-- 📊 **Мониторинг памяти** — показывает использование оперативной памяти, доступную память, файловый кэш и выделенную память.
-- 🧹 **Выборочная очистка памяти** — очищает выбранные области памяти: рабочие наборы процессов, список ожидания, изменённые страницы и системный файловый кэш.
-- ⚡ **Автоматическая очистка** — позволяет запускать очистку вручную или автоматически через заданный интервал и/или при достижении порога занятой памяти.
-- 📜 **Журнал очисток** — сохраняет результаты очистки с указанием времени, причины запуска и оценки освобождённой памяти.
-- 🚫 **Исключения процессов** — позволяет исключить отдельные процессы из очистки.
-- 🖥️ **Интеграция с Windows** — поддерживает запуск вместе с Windows, сворачивание в системный трей и глобальную горячую клавишу `Ctrl+Alt+M`.
-- 🎨 **Тёмный интерфейс** — предлагает тёмную тему и русский, английский или системный язык.
+- 📊 **Мониторинг памяти** - показывает использование оперативной памяти, доступную память, файловый кэш и выделенную память.
+- 🧹 **Выборочная очистка памяти** - очищает выбранные области памяти: рабочие наборы процессов, список ожидания, изменённые страницы и системный файловый кэш.
+- ⚡ **Автоматическая очистка** - позволяет запускать очистку вручную или автоматически через заданный интервал и/или при достижении порога занятой памяти.
+- 📜 **Журнал очисток** - сохраняет результаты очистки с указанием времени, причины запуска и оценки освобождённой памяти.
+- 🚫 **Исключения процессов** - позволяет исключить отдельные процессы из очистки.
+- 🖥️ **Интеграция с Windows** - поддерживает запуск вместе с Windows, сворачивание в системный трей и глобальную горячую клавишу `Ctrl+Alt+M`.
+- 🎨 **Тёмный интерфейс** - предлагает тёмную тему и русский, английский или системный язык.
 
-Набор доступных областей очистки зависит от версии Windows и сборки. Подробнее — в разделе **«Доступность функций очистки памяти»** ниже.
+Набор доступных областей очистки зависит от версии Windows и сборки. Подробнее - в разделе **«Доступность функций очистки памяти»** ниже.
 
 ## 📁 Структура проекта
 
 | Папка | Поддерживаемые системы | Технология | Установщик |
 |:------|:-----------------------|:-----------|:-----------|
-| `windows-10-11` | Windows 10 1809 и новее, Windows 11, только x64 | WPF, .NET 10 | `MemCleaner-Setup-1.0.0.0.exe` |
+| `windows-10-11` | Windows 10 1809 и новее, Windows 11, только x64 | WPF, .NET 10 | `MemCleaner-Setup-win10-win11-1.0.0.0.exe` |
 | `windows-7-8.1` | Windows 7 SP1, Windows 8.1 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
 | `windows-vista` | Windows Vista SP2 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
 | `windows-xp` | Windows XP SP3, 32-бит | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
