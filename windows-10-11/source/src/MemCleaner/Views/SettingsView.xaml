@@ -1,0 +1,384 @@
+<UserControl x:Class="MemCleaner.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:MemCleaner.Localization"
+             Background="Transparent">
+
+    <Grid Margin="30,26,30,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{loc:Tr settingsTitle}" Style="{StaticResource HeadingText}" VerticalAlignment="Center" />
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding SaveStatusText}"
+                           Foreground="{Binding SaveStatusBrush}"
+                           FontSize="12.5"
+                           VerticalAlignment="Center"
+                           Margin="0,0,14,0"
+                           Visibility="{Binding ShowStatus, Converter={StaticResource BoolToVis}}" />
+                <Button Style="{StaticResource GhostButton}"
+                        Content="{loc:Tr resetButton}"
+                        Command="{Binding ResetSettingsCommand}"
+                        AutomationProperties.Name="{loc:Tr resetButton}" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1"
+                      Margin="0,18,0,0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="0,0,8,20">
+
+                <Border Style="{StaticResource Card}" Padding="24,20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="0,0,20,0">
+                            <TextBlock Text="{loc:Tr languageTitle}" Style="{StaticResource SectionTitle}" />
+                            <TextBlock Text="{loc:Tr languageDesc}" Style="{StaticResource CaptionText}" Margin="0,6,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <RadioButton Style="{StaticResource SegmentOption}"
+                                         GroupName="Language"
+                                         Content="{loc:Tr languageSystem}"
+                                         Margin="0,0,6,0"
+                                         AutomationProperties.Name="{loc:Tr languageSystem}"
+                                         IsChecked="{Binding Settings.LanguageMode, Mode=TwoWay, Converter={StaticResource StringEquals}, ConverterParameter=system}" />
+                            <RadioButton Style="{StaticResource SegmentOption}"
+                                         GroupName="Language"
+                                         Content="{loc:Tr languageEnglish}"
+                                         Margin="0,0,6,0"
+                                         AutomationProperties.Name="{loc:Tr languageEnglish}"
+                                         IsChecked="{Binding Settings.LanguageMode, Mode=TwoWay, Converter={StaticResource StringEquals}, ConverterParameter=en}" />
+                            <RadioButton Style="{StaticResource SegmentOption}"
+                                         GroupName="Language"
+                                         Content="{loc:Tr languageRussian}"
+                                         AutomationProperties.Name="{loc:Tr languageRussian}"
+                                         IsChecked="{Binding Settings.LanguageMode, Mode=TwoWay, Converter={StaticResource StringEquals}, ConverterParameter=ru}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Padding="24,22" Margin="0,14,0,0">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Tr sectionAuto}"
+                                       Style="{StaticResource SectionTitle}"
+                                       VerticalAlignment="Center" />
+                            <CheckBox Grid.Column="1"
+                                      Style="{StaticResource ToggleSwitch}"
+                                      IsChecked="{Binding Settings.AutoCleanEnabled, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.Name="{loc:Tr sectionAuto}" />
+                        </Grid>
+
+                        <TextBlock Text="{loc:Tr autoDescription}"
+                                   Style="{StaticResource CaptionText}"
+                                   Margin="0,8,0,4" />
+
+                        <Grid Margin="0,18,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="76" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Content="{loc:Tr autoInterval}"
+                                      Style="{StaticResource CheckOption}"
+                                      IsChecked="{Binding Settings.UseInterval, Mode=TwoWay}"
+                                      VerticalAlignment="Center" />
+                            <Slider Grid.Column="1"
+                                    Style="{StaticResource AccentSlider}"
+                                    Minimum="1"
+                                    Maximum="180"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    IsEnabled="{Binding Settings.UseInterval}"
+                                    Value="{Binding Settings.IntervalMinutes, Mode=TwoWay}"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,12,0"
+                                    AutomationProperties.Name="{loc:Tr autoInterval}" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Settings.IntervalMinutes}"
+                                           FontFamily="{StaticResource DisplayFont}"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource MutedBrush}" />
+                                <TextBlock Text="{loc:Tr unitMinShort}"
+                                           FontSize="12"
+                                           Foreground="{StaticResource DimBrush}"
+                                           Margin="4,1,0,0" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="76" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Content="{loc:Tr autoThreshold}"
+                                      Style="{StaticResource CheckOption}"
+                                      IsChecked="{Binding Settings.UseThreshold, Mode=TwoWay}"
+                                      VerticalAlignment="Center" />
+                            <Slider Grid.Column="1"
+                                    Style="{StaticResource AccentSlider}"
+                                    Minimum="40"
+                                    Maximum="99"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    IsEnabled="{Binding Settings.UseThreshold}"
+                                    Value="{Binding Settings.ThresholdPercent, Mode=TwoWay}"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,12,0"
+                                    AutomationProperties.Name="{loc:Tr autoThreshold}" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Settings.ThresholdPercent}"
+                                           FontFamily="{StaticResource DisplayFont}"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource MutedBrush}" />
+                                <TextBlock Text="%"
+                                           FontSize="12"
+                                           Foreground="{StaticResource DimBrush}"
+                                           Margin="2,1,0,0" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="76" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{loc:Tr autoCooldown}"
+                                       FontSize="13"
+                                       Foreground="{StaticResource MutedBrush}"
+                                       VerticalAlignment="Center" />
+                            <Slider Grid.Column="1"
+                                    Style="{StaticResource AccentSlider}"
+                                    Minimum="1"
+                                    Maximum="120"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    Value="{Binding Settings.CooldownMinutes, Mode=TwoWay}"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,12,0"
+                                    AutomationProperties.Name="{loc:Tr autoCooldown}" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Settings.CooldownMinutes}"
+                                           FontFamily="{StaticResource DisplayFont}"
+                                           FontSize="13"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource MutedBrush}" />
+                                <TextBlock Text="{loc:Tr unitMinShort}"
+                                           FontSize="12"
+                                           Foreground="{StaticResource DimBrush}"
+                                           Margin="4,1,0,0" />
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="{loc:Tr autoNote}"
+                                   Style="{StaticResource MicroText}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,16,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Padding="24,22" Margin="0,14,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{loc:Tr sectionAreas}" Style="{StaticResource SectionTitle}" />
+                        <Grid Margin="0,14,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel>
+                                <CheckBox Content="{loc:Tr areaWorkingSetsLabel}"
+                                          Style="{StaticResource CheckOption}"
+                                          IsChecked="{Binding Settings.AreaWorkingSets, Mode=TwoWay}" />
+                                <TextBlock Text="{loc:Tr areaWorkingSetsDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="30,5,0,0" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <CheckBox Content="{loc:Tr areaStandbyLabel}"
+                                          Style="{StaticResource CheckOption}"
+                                          IsChecked="{Binding Settings.AreaStandbyList, Mode=TwoWay}" />
+                                <TextBlock Text="{loc:Tr areaStandbyDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="30,5,0,0" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Margin="0,18,0,0">
+                                <CheckBox Content="{loc:Tr areaModifiedLabel}"
+                                          Style="{StaticResource CheckOption}"
+                                          IsChecked="{Binding Settings.AreaModifiedPageList, Mode=TwoWay}" />
+                                <TextBlock Text="{loc:Tr areaModifiedDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="30,5,0,0" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,18,0,0">
+                                <CheckBox Content="{loc:Tr areaFileCacheLabel}"
+                                          Style="{StaticResource CheckOption}"
+                                          IsChecked="{Binding Settings.AreaSystemFileCache, Mode=TwoWay}" />
+                                <TextBlock Text="{loc:Tr areaFileCacheDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="30,5,0,0" />
+                            </StackPanel>
+                        </Grid>
+                        <TextBlock Text="{loc:Tr areasNote}"
+                                   Style="{StaticResource MicroText}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,16,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Padding="24,22" Margin="0,14,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{loc:Tr sectionExceptions}" Style="{StaticResource SectionTitle}" />
+                        <TextBlock Text="{loc:Tr exceptionsDesc}"
+                                   Style="{StaticResource CaptionText}"
+                                   Margin="0,7,0,0" />
+                        <TextBox Style="{StaticResource Input}"
+                                 Height="72"
+                                 Margin="0,14,0,0"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto"
+                                 VerticalContentAlignment="Top"
+                                 AutomationProperties.Name="{loc:Tr sectionExceptions}"
+                                 Text="{Binding Settings.ExcludedProcesses, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{loc:Tr exceptionsHint}"
+                                   Style="{StaticResource MicroText}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,10,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Padding="24,22" Margin="0,14,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{loc:Tr sectionBehavior}" Style="{StaticResource SectionTitle}" />
+
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,20,0">
+                                <TextBlock Text="{loc:Tr startupTitle}" FontSize="13" />
+                                <TextBlock Text="{loc:Tr startupDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="0,4,0,0" />
+                                <TextBlock Text="{Binding Settings.AutostartMessage}"
+                                           Foreground="{StaticResource WarningBrush}"
+                                           FontSize="12"
+                                           TextWrapping="Wrap"
+                                           Margin="0,6,0,0"
+                                           Visibility="{Binding Settings.HasAutostartMessage, Converter={StaticResource BoolToVis}}" />
+                            </StackPanel>
+                            <CheckBox Grid.Column="1"
+                                      Style="{StaticResource ToggleSwitch}"
+                                      IsChecked="{Binding Settings.StartWithWindows, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.Name="{loc:Tr startupTitle}" />
+                        </Grid>
+
+                        <Grid Margin="0,18,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,20,0">
+                                <TextBlock Text="{loc:Tr trayTitle}" FontSize="13" />
+                                <TextBlock Text="{loc:Tr trayDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                            <CheckBox Grid.Column="1"
+                                      Style="{StaticResource ToggleSwitch}"
+                                      IsChecked="{Binding Settings.MinimizeToTray, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.Name="{loc:Tr trayTitle}" />
+                        </Grid>
+
+                        <Grid Margin="0,18,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,20,0">
+                                <TextBlock Text="{loc:Tr notificationsTitle}" FontSize="13" />
+                                <TextBlock Text="{loc:Tr notificationsDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                            <CheckBox Grid.Column="1"
+                                      Style="{StaticResource ToggleSwitch}"
+                                      IsChecked="{Binding Settings.NotifyOnClean, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.Name="{loc:Tr notificationsTitle}" />
+                        </Grid>
+
+                        <Grid Margin="0,18,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="0,0,20,0">
+                                <TextBlock Text="{loc:Tr hotkeyTitle}" FontSize="13" />
+                                <TextBlock Text="{loc:Tr hotkeyDesc}"
+                                           Style="{StaticResource CaptionText}"
+                                           Margin="0,4,0,0" />
+                                <TextBlock Text="{Binding Settings.HotkeyMessage}"
+                                           Foreground="{StaticResource WarningBrush}"
+                                           FontSize="12"
+                                           TextWrapping="Wrap"
+                                           Margin="0,6,0,0"
+                                           Visibility="{Binding Settings.HasHotkeyMessage, Converter={StaticResource BoolToVis}}" />
+                            </StackPanel>
+                            <CheckBox Grid.Column="1"
+                                      Style="{StaticResource ToggleSwitch}"
+                                      IsChecked="{Binding Settings.HotkeyEnabled, Mode=TwoWay}"
+                                      VerticalAlignment="Center"
+                                      AutomationProperties.Name="{loc:Tr hotkeyTitle}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="{Binding Settings.ValidationMessage}"
+                           Foreground="{StaticResource WarningBrush}"
+                           FontSize="12.5"
+                           TextWrapping="Wrap"
+                           Margin="4,14,0,0"
+                           Visibility="{Binding Settings.HasValidationError, Converter={StaticResource BoolToVis}}" />
+
+                <TextBlock Text="{loc:Tr autoSaveHint}"
+                           Style="{StaticResource MicroText}"
+                           Margin="4,14,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
