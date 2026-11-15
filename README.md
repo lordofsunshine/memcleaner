@@ -2,11 +2,11 @@
 
 <img src="https://i.postimg.cc/8Pr1ThnQ/image.png" alt="MemCleaner Banner" width="100%">
 
-# 🧹 MemCleaner — Windows Vista
+# 🧹 MemCleaner
 
-**A lightweight memory cleaner for Windows Vista SP2.**
+**A lightweight memory cleaner for Windows with automatic cleanup and memory monitoring.**
 
-[⬇️ Download from GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases)
+[⬇️ Download for Windows XP, Vista, 7, 8.1, 10 and 11](https://github.com/lordofsunshine/memcleaner/releases)
 
 [English](#english) · [Русский](#russian)
 
@@ -20,90 +20,112 @@
 
 ## 🇬🇧 English
 
-A WinForms build based on .NET Framework 3.5 for Windows Vista SP2.
+MemCleaner is a Windows memory cleaner with a dark interface, automatic cleanup based on configurable intervals and memory usage thresholds, a cleanup history, and language switching.
 
-Windows Vista supports standby lists, modified pages, and the system file cache. Therefore, all four memory cleanup areas are available in this version, although the interface is simpler than the Windows 10 / 11 version.
+**Version:** 1.0.0  
+**Author:** lordofsunshine  
+**License:** MIT
 
-## ⚙️ Requirements
+## ✨ Features
 
-- Windows Vista with Service Pack 2 (SP2);
-- .NET Framework 3.5. Windows Vista only includes .NET Framework 3.0, so version 3.5 must be installed separately;
-- Administrator privileges.
+- 📊 **Memory monitoring** — displays RAM usage, available memory, file cache, and committed memory.
+- 🧹 **Selective memory cleanup** — cleans selected memory areas: process working sets, the standby list, modified pages, and the system file cache.
+- ⚡ **Automatic cleanup** — manually start cleanup or configure automatic cleanup based on a time interval and/or a memory usage threshold.
+- 📜 **Cleanup history** — records cleanup results, including the time, trigger reason, and estimated amount of freed memory.
+- 🚫 **Process exclusions** — exclude individual processes from cleanup.
+- 🖥️ **Windows integration** — supports startup with Windows, system tray minimization, and the global `Ctrl+Alt+M` hotkey.
+- 🎨 **Dark interface** — a dark UI with Russian, English, and system language options.
 
-.NET Framework 3.5 can be installed through Windows Update or using a separate Microsoft installer.
+The available memory cleanup areas depend on the Windows version and application build. See **Memory Cleanup Feature Availability** below for details.
 
-The application will not start without it because it is specifically built for .NET Framework 3.5.
+## 📁 Project Structure
+
+| Directory | Supported Systems | Technology | Installer |
+|:----------|:------------------|:-----------|:----------|
+| `windows-10-11` | Windows 10 1809 and newer, Windows 11, x64 only | WPF, .NET 10 | `MemCleaner-Setup-1.0.0.0.exe` |
+| `windows-7-8.1` | Windows 7 SP1, Windows 8.1 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
+| `windows-vista` | Windows Vista SP2 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
+| `windows-xp` | Windows XP SP3, 32-bit | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
+
+The modern version requires .NET 10, which is not available and will not be available on older Windows systems.
+
+That's why separate WinForms builds using .NET Framework 3.5 were created for XP, Vista, Windows 7, and Windows 8.1. They have a simpler interface but can run on systems where WPF on .NET 10 cannot work.
+
+## 🧠 Memory Cleanup Feature Availability
+
+Memory cleanup relies on Windows system capabilities, which differ between operating system versions:
+
+| Memory Area | Windows Support |
+|:------------|:----------------|
+| Process working sets (`EmptyWorkingSet`) | Available on all supported systems, starting with Windows XP |
+| Standby list and modified page list (`NtSetSystemInformation`) | Available starting with Windows Vista; not available on Windows XP |
+| System file cache (`SetSystemFileCacheSize`) | Supported starting with Windows Vista; on Windows XP, available only in the 64-bit edition |
+| Elevated Task Scheduler task | Available on Windows Vista and newer |
+
+Additional details:
+
+- On 32-bit Windows XP, the system file cache cleanup option is hidden.
+- On Windows XP, automatic startup is configured through the current user's `Run` registry key instead of an elevated scheduled task.
+- Legacy builds do not present unavailable cleanup areas as functional options. They are marked as unavailable and are never enabled.
+
+This prevents users from enabling options that the operating system cannot execute.
 
 ## 📥 Installation
 
-Download the appropriate installer from [GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases).
+All application versions are available on the [GitHub Releases page](https://github.com/lordofsunshine/memcleaner/releases).
 
-Run:
+Choose the installer corresponding to your Windows version:
 
-```text
-installer/MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe
-```
+| Windows Version | Installer |
+|:----------------|:----------|
+| Windows 10 1809+ / Windows 11 (x64) | `MemCleaner-Setup-1.0.0.0.exe` |
+| Windows 7 SP1 / Windows 8.1 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
+| Windows Vista SP2 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
+| Windows XP SP3 (32-bit) | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
 
-The installer is built using Inno Setup 5 because installers created with Inno Setup 6 do not work on Windows Vista.
+1. Open [GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases).
+2. Download the installer corresponding to your Windows version.
+3. Run the installer.
 
-It checks the operating system version and prevents installation on Windows 7 and newer systems. Separate builds are available for those versions of Windows.
+The installer automatically checks the minimum supported Windows version and prevents installation on an incompatible system.
 
-## ✨ Available Features
+**.NET Framework 3.5 requirement for legacy builds:**
 
-- 🧹 **Four memory cleanup areas** — process working sets, the standby list, modified pages, and the system file cache.
-- ⚡ **Automatic cleanup** — based on a time interval, memory usage threshold, or both conditions, with a configurable delay between cleanup operations.
-- 🚫 **Process exclusions** — exclude individual processes from cleanup.
-- 📜 **Cleanup history** — keeps a record of the last six cleanup operations.
-- 🔔 **System tray and notifications** — system tray integration, notifications, and automatic startup through an elevated Task Scheduler task.
-- 🌐 **Language selection** — system language, English, or Russian.
+- Windows 7 and Windows 8.1: .NET Framework 3.5 is included with the system.
+- Windows Vista and Windows XP: .NET Framework 3.5 must be installed separately.
 
-### Differences from the Windows 10 / 11 Version
-
-The following features are not available:
-
-- Modern WPF interface.
-- Memory usage chart displaying the last 90 seconds.
-- Global `Ctrl+Alt+M` hotkey.
+Additional installation instructions are available in the README file inside each version directory.
 
 ## 🔨 Building from Source
 
-### Building the Application
+### Modern Version
 
 ```powershell
-dotnet build source/MemCleanerLegacy/MemCleanerLegacy.csproj -c Release
+dotnet publish windows-10-11/source/src/MemCleaner/MemCleaner.csproj -c Release -o publish
 ```
 
-### Building the Installer
+### Legacy Version
 
-The installer is built using Inno Setup 5 from the project directory:
+The same legacy source is used for Windows XP, Vista, Windows 7, and Windows 8.1.
 
 ```powershell
-iscc source/installer/legacy-vista.iss
+dotnet build windows-xp/source/MemCleanerLegacy/MemCleanerLegacy.csproj -c Release
 ```
 
-**Important:** Inno Setup 5 must be used. Version 6 creates installers that cannot run on Windows Vista.
+### Build Requirements and Notes
 
-The resulting installer will appear in the `installer` directory.
-
-## 🖥️ Windows Vista Specifics
-
-- 🧠 **Full memory cleanup support** — Windows Vista supports `NtSetSystemInformation` for the standby list and modified pages, as well as `SetSystemFileCacheSize` for the system file cache. Therefore, the interface does not mark any of the four cleanup areas as unavailable.
-- 🔐 **User Account Control (UAC)** — UAC is enabled in Windows Vista, so the application requests elevated privileges on startup. Automatic startup through Task Scheduler prevents an unnecessary application window from appearing when signing in.
-- 🌐 **Firewall notification** — on the first launch after installation, Windows may ask for permission to access the network. The application does not need network access; this is a standard Windows Firewall prompt for applications with a manifest.
-
-## ⚠️ Limitations
-
-- The interface uses classic WinForms styling without a smooth memory chart.
-- The amount of freed memory is approximate and is calculated from the difference in available memory.
-- The application is not signed with a code-signing certificate, so Windows may display a security warning.
+- The legacy build requires the `Microsoft.NETFramework.ReferenceAssemblies.net35` package. It is restored automatically.
+- Installers are built using Inno Setup.
+- The modern version and the Windows 7 / 8.1 installer use Inno Setup 6.
+- Windows XP and Vista installers use Inno Setup 5 because version 6 cannot create installers that run on those systems.
 
 ## 📄 License
 
 MIT License.
 
-**Author:** lordofsunshine.
+**Author:** lordofsunshine
 
-The full license text is available in the `LICENSE` file.
+The full license text is available in the `LICENSE` file next to this README and inside each version directory.
 
 ---
 
@@ -112,84 +134,106 @@ The full license text is available in the `LICENSE` file.
 <details>
 <summary><strong>🇷🇺 Русская версия</strong></summary>
 
-# 🧹 MemCleaner для Windows Vista
+<div align="center">
 
-Сборка на WinForms под .NET Framework 3.5 для Windows Vista SP2.
+# 🧹 MemCleaner
 
-Vista умеет работать со списками памяти и системным файловым кэшем, поэтому здесь доступны все четыре области очистки, но интерфейс проще, чем в версии для Windows 10 и 11.
+**Очиститель оперативной памяти для Windows.**
 
-## ⚙️ Требования
+</div>
 
-- Windows Vista с пакетом обновления SP2;
-- .NET Framework 3.5. В Vista встроен только .NET Framework 3.0, поэтому версию 3.5 нужно установить отдельно;
-- права администратора.
+## ✨ Возможности программы
 
-Установить .NET Framework 3.5 можно через центр обновления Windows или отдельным установщиком Microsoft.
+- 📊 **Мониторинг памяти** — показывает использование оперативной памяти, доступную память, файловый кэш и выделенную память.
+- 🧹 **Выборочная очистка памяти** — очищает выбранные области памяти: рабочие наборы процессов, список ожидания, изменённые страницы и системный файловый кэш.
+- ⚡ **Автоматическая очистка** — позволяет запускать очистку вручную или автоматически через заданный интервал и/или при достижении порога занятой памяти.
+- 📜 **Журнал очисток** — сохраняет результаты очистки с указанием времени, причины запуска и оценки освобождённой памяти.
+- 🚫 **Исключения процессов** — позволяет исключить отдельные процессы из очистки.
+- 🖥️ **Интеграция с Windows** — поддерживает запуск вместе с Windows, сворачивание в системный трей и глобальную горячую клавишу `Ctrl+Alt+M`.
+- 🎨 **Тёмный интерфейс** — предлагает тёмную тему и русский, английский или системный язык.
 
-Без него программа не запустится, потому что собрана именно под .NET Framework 3.5.
+Набор доступных областей очистки зависит от версии Windows и сборки. Подробнее — в разделе **«Доступность функций очистки памяти»** ниже.
+
+## 📁 Структура проекта
+
+| Папка | Поддерживаемые системы | Технология | Установщик |
+|:------|:-----------------------|:-----------|:-----------|
+| `windows-10-11` | Windows 10 1809 и новее, Windows 11, только x64 | WPF, .NET 10 | `MemCleaner-Setup-1.0.0.0.exe` |
+| `windows-7-8.1` | Windows 7 SP1, Windows 8.1 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
+| `windows-vista` | Windows Vista SP2 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
+| `windows-xp` | Windows XP SP3, 32-бит | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
+
+Современная версия требует .NET 10, которого нет и не будет на старых системах.
+
+Поэтому для XP, Vista, Windows 7 и 8.1 сделаны отдельные варианты на WinForms под .NET Framework 3.5. Они выглядят проще, зато запускаются там, где WPF на .NET 10 физически не работает.
+
+## 🧠 Доступность функций очистки памяти
+
+Очистка памяти опирается на возможности самой Windows, которые отличаются в зависимости от версии системы:
+
+| Область памяти | Поддержка Windows |
+|:---------------|:------------------|
+| Рабочие наборы процессов (`EmptyWorkingSet`) | Доступны на всех поддерживаемых системах, начиная с Windows XP |
+| Список ожидания и список изменённых страниц (`NtSetSystemInformation`) | Появились в Windows Vista, в Windows XP отсутствуют |
+| Системный файловый кэш (`SetSystemFileCacheSize`) | Поддерживается начиная с Windows Vista; в Windows XP доступен только в 64-битной редакции |
+| Задача планировщика с повышенными правами | Доступна в Windows Vista и новее |
+
+Дополнительные особенности:
+
+- В 32-битной сборке для Windows XP область очистки системного файлового кэша скрыта.
+- В Windows XP автозапуск сделан через ключ `Run` текущего пользователя вместо задачи планировщика с повышенными правами.
+- В legacy-сборках недоступные области не показываются как рабочие функции. Они помечены как недоступные и никогда не включаются.
+
+Так пользователь не сможет включить то, что система всё равно не выполнит.
 
 ## 📥 Установка
 
-Скачать установщик можно на странице [GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases).
+Все версии программы доступны на странице [GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases).
 
-Запустите:
+Выберите установщик, соответствующий вашей версии Windows:
 
-```text
-installer/MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe
-```
+| Версия Windows | Установщик |
+|:---------------|:-----------|
+| Windows 10 1809+ / Windows 11 (x64) | `MemCleaner-Setup-1.0.0.0.exe` |
+| Windows 7 SP1 / Windows 8.1 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
+| Windows Vista SP2 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
+| Windows XP SP3 (32-бит) | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
 
-Установщик собран в Inno Setup 5, потому что установщики Inno Setup 6 не работают на Vista.
+1. Перейдите на страницу [GitHub Releases](https://github.com/lordofsunshine/memcleaner/releases).
+2. Скачайте установщик для своей версии Windows.
+3. Запустите установщик.
 
-Он проверит версию системы и не даст поставить сборку на Windows 7 и новее. Для них есть отдельные папки.
+Установщик автоматически проверит минимальную версию системы и не позволит установить программу на несовместимую систему.
 
-## ✨ Что доступно
+**Требование .NET Framework 3.5 для legacy-сборок:**
 
-- 🧹 **Четыре области очистки памяти** — рабочие наборы процессов, список ожидания, изменённые страницы и системный файловый кэш.
-- ⚡ **Автоматическая очистка** — по интервалу, порогу памяти или обоим условиям, с паузой между срабатываниями.
-- 🚫 **Исключения процессов** — возможность исключить отдельные процессы из очистки.
-- 📜 **Журнал очисток** — последние шесть операций очистки.
-- 🔔 **Трей и уведомления** — работа в системном трее, уведомления и автозапуск через задачу планировщика с повышенными правами.
-- 🌐 **Переключение языка** — системный, английский или русский.
+- Windows 7 и Windows 8.1: .NET Framework 3.5 входит в состав системы.
+- Windows Vista и Windows XP: .NET Framework 3.5 необходимо установить отдельно.
 
-### Отличия от версии для Windows 10 / 11
-
-Здесь отсутствуют:
-
-- Современный интерфейс WPF.
-- Диаграмма использования памяти за последние полторы минуты.
-- Глобальная горячая клавиша `Ctrl+Alt+M`.
+Дополнительные инструкции по установке приведены в README каждой папки версии.
 
 ## 🔨 Сборка из исходников
 
-### Сборка приложения
+### Современная версия
 
 ```powershell
-dotnet build source/MemCleanerLegacy/MemCleanerLegacy.csproj -c Release
+dotnet publish windows-10-11/source/src/MemCleaner/MemCleaner.csproj -c Release -o publish
 ```
 
-### Сборка установщика
+### Legacy-версия
 
-Установщик собирается с помощью Inno Setup 5 из корня папки проекта:
+Для Windows XP, Vista, Windows 7 и Windows 8.1 используется один и тот же исходный код legacy-версии.
 
 ```powershell
-iscc source/installer/legacy-vista.iss
+dotnet build windows-xp/source/MemCleanerLegacy/MemCleanerLegacy.csproj -c Release
 ```
 
-**Важно:** необходимо использовать именно Inno Setup 5. Шестая версия создаёт установщик, который не запускается на Windows Vista.
+### Требования и особенности сборки
 
-Готовый установщик появится в папке `installer`.
-
-## 🖥️ Особенности Windows Vista
-
-- 🧠 **Полная поддержка очистки памяти** — Vista поддерживает `NtSetSystemInformation` для списка ожидания и изменённых страниц, а также `SetSystemFileCacheSize` для системного файлового кэша. Поэтому в интерфейсе нет пометок о недоступных областях очистки.
-- 🔐 **Контроль учётных записей (UAC)** — в Windows Vista включён UAC, поэтому при запуске программа запросит повышение прав. Автозапуск через планировщик избавляет от лишнего окна при входе в систему.
-- 🌐 **Уведомление брандмауэра** — при первом запуске после установки Windows может запросить разрешение на сетевой доступ. Программе он не нужен, это стандартное окно брандмауэра Windows для приложений с манифестом.
-
-## ⚠️ Ограничения
-
-- Интерфейс выполнен в классическом стиле WinForms, без плавной диаграммы памяти.
-- Освобождённый объём приблизительный и рассчитывается по разнице доступной памяти.
-- Программа не подписана сертификатом, поэтому Windows может показать предупреждение безопасности.
+- Для legacy-сборки требуется пакет `Microsoft.NETFramework.ReferenceAssemblies.net35`. Он подтягивается автоматически.
+- Установщики собираются с помощью Inno Setup.
+- Для современной версии и установщика Windows 7 / 8.1 используется Inno Setup 6.
+- Для Windows XP и Vista используется Inno Setup 5, поскольку шестая версия не создаёт установщики, работающие на этих системах.
 
 ## 📄 Лицензия
 
@@ -197,6 +241,6 @@ MIT.
 
 **Автор:** lordofsunshine.
 
-Полный текст лицензии находится в файле `LICENSE`.
+Полный текст лицензии находится в файле `LICENSE` рядом с этим README и в каждой папке версии.
 
 </details>
