@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://i.postimg.cc/8Pr1ThnQ/image.png" alt="MemCleaner Banner" width="100%">
+<img src="https://i.postimg.cc/0yzM7MNZ/image.png" alt="MemCleaner Banner" width="100%">
 
 # 🧹 MemCleaner
 
