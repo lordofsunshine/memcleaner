@@ -42,7 +42,7 @@ The available memory cleanup areas depend on the Windows version and application
 
 | Directory | Supported Systems | Technology | Installer |
 |:----------|:------------------|:-----------|:----------|
-| `windows-10-11` | Windows 10 1809 and newer, Windows 11, x64 only | WPF, .NET 10 | `MemCleaner-Setup-1.0.0.0.exe` |
+| `windows-10-11` | Windows 10 1809 and newer, Windows 11, x64 only | WPF, .NET 10 | `MemCleaner-Setup-win10-win11-1.0.0.0.exe` |
 | `windows-7-8.1` | Windows 7 SP1, Windows 8.1 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-7-8.1-Setup-1.0.0.0.exe` |
 | `windows-vista` | Windows Vista SP2 | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-Vista-Setup-1.0.0.0.exe` |
 | `windows-xp` | Windows XP SP3, 32-bit | WinForms, .NET Framework 3.5 | `MemCleaner-Legacy-XP-Setup-1.0.0.0.exe` |
